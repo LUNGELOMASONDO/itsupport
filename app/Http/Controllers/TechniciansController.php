@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use App\Models\Technician;
+use App\Models\TheJob;
+use App\Models\Appointment;
 
 class TechniciansController extends Controller
 {
@@ -57,10 +61,15 @@ class TechniciansController extends Controller
      */
     public function showTechnician($id)
     {
-        $technician = Technician::find($id);
+        $technician = Technician::find($id); // technician info
+
+        $jobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.id AND users.id=:technician"), array(
+            'technician' => $id
+        ));
 
         $data = [
             'technician' => $technician
+
         ];
         
         return view('technician.profile')->with($data);

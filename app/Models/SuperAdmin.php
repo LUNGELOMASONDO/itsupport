@@ -33,6 +33,8 @@ class SuperAdmin extends Model
      */
     protected $keyType = 'string';
 
+    protected $primaryKey = 'id';
+
     /**
      * Indicates if the model should be timestamped.
      *
