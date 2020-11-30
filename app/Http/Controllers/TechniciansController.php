@@ -3,9 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Technician;
 
 class TechniciansController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +55,15 @@ class TechniciansController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showTechnician($id)
     {
-        //
+        $technician = Technician::find($id);
+
+        $data = [
+            'technician' => $technician
+        ];
+        
+        return view('technician.profile')->with($data);
     }
 
     /**

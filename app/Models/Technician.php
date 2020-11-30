@@ -27,6 +27,15 @@ class Technician extends Model
     protected $table = 'users';
 
     /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    protected $primaryKey = 'id';
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

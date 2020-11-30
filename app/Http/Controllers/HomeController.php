@@ -62,11 +62,6 @@ class HomeController extends Controller
         return view('home')->with($data);
     }
 
-    public function technician()
-    {
-        return view('technician');
-    }
-
     public function showRegistrationForm()
     {
         $user = Auth::user();
@@ -118,16 +113,5 @@ class HomeController extends Controller
         ]);
         
         return redirect()->route('home');
-    }
-
-    public function showTechnician($id)
-    {   
-        $technician = User::find($id);
-
-        $data = [
-            'technician' => $technician
-        ];
-        
-        return view('technician')->with($data);
     }
 }

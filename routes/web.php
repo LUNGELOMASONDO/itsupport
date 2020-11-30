@@ -31,7 +31,7 @@ Route::get('/addtechnician', 'HomeController@showRegistrationForm')->name('techn
 
 Route::post('/addtechnician', 'HomeController@createTechnician')->name('technician.add');
 
-Route::get('/technician/{id}', 'HomeController@showTechnician')->name('technician.show');
+Route::get('/technician/{id}', 'TechniciansController@showTechnician')->name('technician.show');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

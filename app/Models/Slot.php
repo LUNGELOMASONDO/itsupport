@@ -13,6 +13,8 @@ class Slot extends Model
      */
     protected $table = 'slots';
 
+    protected $primaryKey = 'id';
+
     /**
      * Indicates if the model should be timestamped.
      *
