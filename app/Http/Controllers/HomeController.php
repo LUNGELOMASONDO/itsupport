@@ -38,7 +38,7 @@ class HomeController extends Controller
             $data = [
                 'technician' => $user,
             ];
-            return view('technician.home')->with($data);
+            return view('technician.profile')->with($data);
         }
         elseif($user->type == 'USER')
         {

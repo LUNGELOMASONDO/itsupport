@@ -63,13 +63,13 @@ class TechniciansController extends Controller
     {
         $technician = Technician::find($id); // technician info
 
-        $jobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.id AND users.id=:technician"), array(
+        $jobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.appointment_id AND users.id=:technician AND appointments.technician_id=users.id"), array(
             'technician' => $id
         ));
 
         $data = [
-            'technician' => $technician
-
+            'technician' => $technician,
+            'jobs' => $jobs
         ];
         
         return view('technician.profile')->with($data);
