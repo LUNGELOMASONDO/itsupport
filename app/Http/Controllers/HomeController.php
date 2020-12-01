@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -43,10 +44,12 @@ class HomeController extends Controller
         elseif($user->type == 'USER')
         {
             $slots = Slot::all();
+            $notifications = DB::table('notifications')->where('user_id', $user->id)->get();
             
             $data = [
                 'user' => $user,
                 'slots' => $slots,
+                'notifications' => $notifications
             ];
             return view('user.home')->with($data);
         }

@@ -29,9 +29,6 @@
                                         <button class="btn btn-success"> 
                                             <span class="material-icons view-btn" id="{{$tech->id}}" style="font-size:16px;">visibility</span> 
                                         </button>
-                                        <button class="btn btn-danger"> 
-                                            <span class="material-icons delete-btn" id="{{$tech->id}}" style="font-size:16px;">delete</span> 
-                                        </button>
                                     </div>
                                 </div>
                             @endforeach

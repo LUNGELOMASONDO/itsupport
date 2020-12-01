@@ -37,7 +37,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/support', 'SupportController@index');
 
-Route::get('/test', function(){
-    return App\Models\Technician::all();
+Route::post('/makeappointment', 'AppointmentsController@store')->name('make.appointment');
+
+Route::get('/read/{id}', function($id){
+    $note = Illuminate\Support\Facades\DB::table('notifications')->where('id', $id)->delete();
+    return back();
 });
 
