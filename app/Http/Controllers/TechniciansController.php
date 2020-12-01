@@ -63,16 +63,31 @@ class TechniciansController extends Controller
     {
         $technician = Technician::find($id); // technician info
 
-        $jobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.appointment_id AND users.id=:technician AND appointments.technician_id=users.id"), array(
+        $pendingjobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.appointment_id AND users.id=:technician AND appointments.technician_id=users.id AND thejobs.job_done IS NULL"), array(
+            'technician' => $id
+        ));
+
+        $donejobs = DB::select(DB::raw("SELECT thejobs.id AS job_id, appointments.issue AS issue, appointments.the_day AS theday, thejobs.job_done AS done_at, (SELECT users.name FROM users WHERE appointments.user_id=users.id) AS username FROM appointments, thejobs, users WHERE appointments.id=thejobs.appointment_id AND users.id=:technician AND appointments.technician_id=users.id AND thejobs.job_done IS NOT NULL"), array(
+            'technician' => $id
+        ));
+
+        $availablejobs = DB::select(DB::raw("SELECT appointments.issue AS issue, appointments.description AS the_desc, appointments.the_day AS theday FROM appointments, users WHERE users.id=:technician AND appointments.technician_id IS NULL"), array(
             'technician' => $id
         ));
 
         $data = [
             'technician' => $technician,
-            'jobs' => $jobs
+            'pendingjobs' => $pendingjobs,
+            'donejobs' => $donejobs,
+            'availablejobs' => $availablejobs
         ];
         
         return view('technician.profile')->with($data);
+    }
+
+    public function changeJobStatus()
+    {
+
     }
 
     /**
